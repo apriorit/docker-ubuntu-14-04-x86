@@ -1,4 +1,21 @@
-# This docker file contains build environment
-FROM savoirfairelinux/ring-ubuntu32:14.04
-MAINTAINER maliy.sergey <maliy.sergey@apriorit.com>
-RUN apt-get update && apt-get install -y bison++ libssl-dev libprocps3-dev libnl-3-dev libcrypto++-dev libpcre++-dev uuid-dev libsnappy-dev build-essential libboost-all-dev cmake maven libicu-dev zlib1g-dev liblog4cpp5-dev libncurses5-dev libselinux1-dev
+FROM i386/ubuntu:14.04
+MAINTAINER lozovsky <lozovsky@apriorit.com>
+RUN apt-get update && apt-get install -y \
+    automake \
+    build-essential \
+    cmake \
+    curl \
+    gcc \
+    g++ \
+    git \
+    libboost-dev \
+    libcurl4-openssl-dev \
+    libyaml-cpp-dev \
+    linux-headers-3.13.0-132-generic \
+    linux-headers-3.16.0-77-generic \
+    linux-headers-3.19.0-79-generic \
+    linux-headers-4.2.0-42-generic \
+    linux-headers-4.4.0-93-generic \
+    sparse \
+    zlib1g-dev \
+ && rm -rf /var/lib/apt/lists/*
