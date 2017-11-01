@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     curl \
+    dpkg \
     gcc \
     g++ \
     git \
@@ -16,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     linux-headers-3.19.0-79-generic \
     linux-headers-4.2.0-42-generic \
     linux-headers-4.4.0-93-generic \
+    rpm \
     sparse \
     zlib1g-dev \
  && rm -rf /var/lib/apt/lists/*
