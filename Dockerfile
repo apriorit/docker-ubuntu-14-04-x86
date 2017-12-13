@@ -1,31 +1,57 @@
 FROM i386/ubuntu:14.04
 MAINTAINER lozovsky <lozovsky@apriorit.com>
-RUN apt-get update && apt-get install -y \
+
+# Refresh package repostories
+RUN apt-get update
+
+# Install essential packages for building and packaging C++ software
+RUN apt-get install -y \
     automake \
-    bison \
     build-essential \
     cmake \
     curl \
     debhelper \
-    dpkg \
-    flex \
+    fakeroot \
     gcc \
     g++ \
     git \
-    libboost-dev \
-    libcurl4-openssl-dev \
-    libnl-3-dev \
-    libnl-genl-3-dev \
-    libnl-route-3-dev \
-    libyaml-cpp-dev \
     lintian \
+    rpm \
+ && exit
+
+# Install Linux kernel development files
+RUN apt-get install -y \
     linux-headers-3.13.0-24-generic \
     linux-headers-3.13.0-132-generic \
     linux-headers-3.16.0-77-generic \
     linux-headers-3.19.0-79-generic \
     linux-headers-4.2.0-42-generic \
     linux-headers-4.4.0-93-generic \
-    rpm \
     sparse \
+ && exit
+
+# Install miscellaneous libraries and dependencies
+RUN apt-get install -y \
+    bison \
+    flex \
+    libboost-dev \
+    libcurl4-openssl-dev \
+    libnl-3-dev \
+    libnl-genl-3-dev \
+    libnl-route-3-dev \
     zlib1g-dev \
- && rm -rf /var/lib/apt/lists/*
+ && exit
+
+# Remove cached packages and repository contents to conserve disk space
+RUN rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
+# Copy our Docker scripts directory into the image
+ADD docker/* /tmp/docker/
+
+# Download, build, and install our custom dependencies
+RUN /tmp/docker/install-openssl
+RUN /tmp/docker/install-libpcap
+RUN /tmp/docker/install-yaml-cpp
+
+# Remove our scripts from the image
+RUN rm -r /tmp/docker

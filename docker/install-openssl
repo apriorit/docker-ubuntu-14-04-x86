@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+# Install OpenSSL library: cryptography
+
+repo_url=https://github.com/openssl/openssl
+version=OpenSSL_1_1_0f
+
+source_dir=/tmp/openssl-source
+build_dir=/tmp/openssl-build
+
+# OpenSSL build system can automatically detect the target architecture
+# based on information in /proc. However, our CI uses Docker, so when
+# running in 32-bit images OpenSSL's ./config script detects the target
+# architecture incorrectly. To build correct version we probe the default
+# target architecture of the compiler and explicitly pass the desired
+# architecture to ./Configure script.
+openssl_target_architecture() {
+    compiler_id=$(cc -dumpmachine)
+    if [[ "$compiler_id" == *"i686-linux"* ]]
+    then
+        echo "linux-x86"
+    elif [[ "$compiler_id" == *"x86_64-linux"* ]]
+    then
+        echo "linux-x86_64"
+    else
+        echo "C compiler not supported by OpenSSL build: $(which cc)" >&2
+        exit 1
+    fi
+}
+
+set -eux
+
+git clone --depth 1 --branch "$version" "$repo_url" "$source_dir"
+
+mkdir "$build_dir" && cd "$build_dir"
+
+${source_dir}/Configure "$(openssl_target_architecture)" \
+    no-shared \
+    no-weak-ssl-ciphers \
+
+make depend
+make
+make install_sw
+
+rm -rf "$build_dir"
+rm -rf "$source_dir"

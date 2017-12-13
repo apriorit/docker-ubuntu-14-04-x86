@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+# Install libpcap library: packet capture
+
+repo_url=https://github.com/the-tcpdump-group/libpcap.git
+version=libpcap-1.8.1
+
+source_dir=/tmp/libpcap-source
+build_dir=/tmp/libpcap-build
+
+set -eux
+
+git clone --depth 1 --branch "$version" "$repo_url" "$source_dir"
+
+mkdir "$build_dir" && cd "$build_dir"
+
+${source_dir}/configure \
+    --disable-shared \
+
+make
+make install
+
+rm -rf "$build_dir"
+rm -rf "$source_dir"

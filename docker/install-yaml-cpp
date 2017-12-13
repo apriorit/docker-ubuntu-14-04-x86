@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# Install yaml-cpp library: YAML parsing
+
+repo_url=https://github.com/jbeder/yaml-cpp.git
+version=release-0.5.3
+
+source_dir=/tmp/yaml-cpp-source
+build_dir=/tmp/yaml-cpp-build
+
+set -eux
+
+# Get yaml-cpp source code
+git clone --depth 1 --branch "$version" "$repo_url" "$source_dir"
+
+# Build and install yaml-cpp
+mkdir "$build_dir" && cd "$build_dir"
+cmake \
+    -DYAML_CPP_BUILD_TOOLS:BOOL=NO \
+    "$source_dir"
+make
+make install
+
+# Cleanup build files and source code
+rm -rf "$build_dir"
+rm -rf "$source_dir"
