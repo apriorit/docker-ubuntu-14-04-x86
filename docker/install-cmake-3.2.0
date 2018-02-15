@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Install CMake build system
+
+repo_url=https://github.com/Kitware/CMake.git
+version=v3.2.0
+
+source_dir=/tmp/cmake-source
+build_dir=/tmp/cmake-build
+
+set -eux
+
+git clone --depth 1 --branch "$version" "$repo_url" "$source_dir"
+
+mkdir "$build_dir" && cd "$build_dir"
+
+${source_dir}/configure
+make
+make install
+
+rm -rf "$build_dir"
+rm -rf "$source_dir"

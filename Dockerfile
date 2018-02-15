@@ -53,6 +53,7 @@ ADD docker/* /tmp/docker/
 RUN /tmp/docker/install-openssl
 RUN /tmp/docker/install-libpcap
 RUN /tmp/docker/install-yaml-cpp
+RUN /tmp/docker/install-cmake-3.2.0
 
 # Remove our scripts from the image
 RUN rm -r /tmp/docker
