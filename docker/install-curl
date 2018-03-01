@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Install curl library: HTTP requests
+
+# curl uses Autotools, but does not keep "configure" in the repo,
+# so it's easier for us to use official tarballs than to bother
+# with building from cloned repository.
+source_url=https://github.com/curl/curl/releases/download/curl-7_58_0/curl-7.58.0.tar.gz
+
+tarball=/tmp/curl-7.58.0.tar.gz
+source_dst=/tmp
+source_dir=/tmp/curl-7.58.0
+build_dir=/tmp/curl-build
+
+set -eux
+
+# Get curl source code (oh, the irony!)
+curl -L ${source_url} > ${tarball}
+tar xf ${tarball} -C ${source_dst}
+
+# Build and install curl
+mkdir "$build_dir" && cd "$build_dir"
+
+${source_dir}/configure \
+    --disable-shared \
+    --with-ssl \
+    --disable-ldap \
+    --disable-ldaps \
+    --disable-rtsp \
+    --disable-dict \
+    --disable-telnet \
+    --disable-ftp \
+    --disable-tftp \
+    --disable-pop3 \
+    --disable-imap \
+    --disable-smb \
+    --disable-smtp \
+    --disable-gopher \
+    --without-librtmp \
+
+make
+make install
+
+# Cleanup build files and source code
+rm -rf "$build_dir"
+rm -rf "$source_dir"
+rm -rf "$tarball"

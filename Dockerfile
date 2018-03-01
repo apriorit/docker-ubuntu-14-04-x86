@@ -16,6 +16,7 @@ RUN apt-get install -y \
     g++ \
     git \
     lintian \
+    pkg-config \
     rpm \
  && exit
 
@@ -35,7 +36,7 @@ RUN apt-get install -y \
     bison \
     flex \
     libboost-dev \
-    libcurl4-openssl-dev \
+    libjson-c-dev \
     libnl-3-dev \
     libnl-genl-3-dev \
     libnl-route-3-dev \
@@ -54,6 +55,7 @@ RUN /tmp/docker/install-openssl
 RUN /tmp/docker/install-libpcap
 RUN /tmp/docker/install-yaml-cpp
 RUN /tmp/docker/install-cmake-3.2.0
+RUN /tmp/docker/install-curl
 
 # Remove our scripts from the image
 RUN rm -r /tmp/docker
