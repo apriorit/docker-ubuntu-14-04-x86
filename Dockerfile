@@ -11,6 +11,7 @@ RUN apt-get install -y \
     cmake \
     curl \
     debhelper \
+    elfutils \
     fakeroot \
     gcc \
     g++ \
