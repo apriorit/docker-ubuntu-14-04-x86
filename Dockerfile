@@ -23,9 +23,6 @@ RUN apt-get install -y \
 
 # Install Linux kernel development files
 RUN apt-get install -y \
-    linux-headers-3.13.0-24-generic \
-    linux-headers-3.13.0-132-generic \
-    linux-headers-3.16.0-77-generic \
     linux-headers-3.19.0-79-generic \
     linux-headers-4.2.0-42-generic \
     linux-headers-4.4.0-93-generic \
