@@ -40,6 +40,7 @@ RUN apt-get install -y \
     libnl-route-3-dev \
     libsqlite3-dev \
     zlib1g-dev \
+    libmagic-dev \
  && exit
 
 # Remove cached packages and repository contents to conserve disk space
