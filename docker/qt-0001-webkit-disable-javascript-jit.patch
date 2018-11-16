@@ -1,0 +1,24 @@
+--- qt-everywhere-opensource-src-4.8.1-clean/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h
++++ qt-everywhere-opensource-src-4.8.1-nojit/src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h
+@@ -901,6 +901,9 @@
+ #define ENABLE_REPAINT_THROTTLING 0
+ #endif
+ 
++/* Disable JIT for all platforms */
++#define ENABLE_JIT 0
++
+ #if !defined(ENABLE_JIT)
+ 
+ /* The JIT is tested & working on x86_64 Mac */
+--- qt-everywhere-opensource-src-4.8.1-clean/src/3rdparty/webkit/Source/JavaScriptCore/wtf/Platform.h
++++ qt-everywhere-opensource-src-4.8.1-nojit/src/3rdparty/webkit/Source/JavaScriptCore/wtf/Platform.h
+@@ -1009,6 +1009,9 @@
+ #define ENABLE_REPAINT_THROTTLING 0
+ #endif
+ 
++/* Disable JIT for all platforms */
++#define ENABLE_JIT 0
++
+ /* Disable the JIT on versions of GCC prior to 4.1 */
+ #if !defined(ENABLE_JIT) && COMPILER(GCC) && !GCC_VERSION_AT_LEAST(4, 1, 0)
+ #define ENABLE_JIT 0
