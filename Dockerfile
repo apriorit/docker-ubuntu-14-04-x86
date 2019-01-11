@@ -11,7 +11,7 @@ libtool flex pkg-config libssl-dev libblkid-dev \
 giblib-dev libimlib2-dev libglib2.0-dev libgtk-3-dev libcanberra-gtk3-dev
 
 RUN cd /tmp && wget https://github.com/Kitware/CMake/releases/download/v3.12.4/cmake-3.12.4.tar.gz && tar xf cmake-3.12.4.tar.gz && cd /tmp/cmake-3.12.4 && \
-./bootstrap -- -DCMAKE_BUILD_TYPE:STRING=Release && make && sudo make install && cd ../ && rm -rf cmake-3.12.4 && rm -rf cmake-3.12.4.tar.gz
+./bootstrap -- -DCMAKE_BUILD_TYPE:STRING=Release && make && make install && cd ../ && rm -rf cmake-3.12.4 && rm -rf cmake-3.12.4.tar.gz
 
 RUN cd /tmp && wget https://github.com/emcrisostomo/fswatch/releases/download/1.9.3/fswatch-1.9.3.tar.gz && tar xf fswatch-1.9.3.tar.gz && \
 cd fswatch-1.9.3 && ./configure && make install && cd ../ && rm -rf fswatch-1.9.3.tar.gz && rm -rf fswatch-1.9.3
