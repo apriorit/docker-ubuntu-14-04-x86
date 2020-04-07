@@ -21,3 +21,9 @@ RUN cd /tmp && apt-get source libxalan-c111 && cd ./xalan-1.11/c/ && export XALA
 
 RUN apt-get install -y libgtest-dev
 RUN cd /usr/src/gtest/ && cmake . && make && cp *.a /usr/lib
+
+RUN apt-get install -y git bison
+# liblightgrep
+RUN cd /tmp && git clone --recursive https://github.com/ligen-ua/liblightgrep.git && cd liblightgrep && autoreconf -fi && ./configure --with-boost-libdir=/usr/lib/i386-linux-gnu/ && make && make install
+
+
