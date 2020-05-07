@@ -1,7 +1,7 @@
 # This docker file contains build environment
 FROM savoirfairelinux/ring-ubuntu32:14.04
 MAINTAINER maliy.sergey <maliy.sergey@apriorit.com>
-RUN apt-get update && apt-get install -y bison++ libssl-dev libxalan-c-dev libxerces-c-dev libprocps3-dev \
+RUN apt-get update && apt-get install -y bison++ tcl libssl-dev libxalan-c-dev libxerces-c-dev libprocps3-dev \
 libnl-3-dev libcrypto++-dev libpcre++-dev uuid-dev libsnappy-dev build-essential libboost-all-dev cmake maven \
 libicu-dev zlib1g-dev liblog4cpp5-dev libncurses5-dev libselinux1-dev wget libsqlite3-dev \
 google-mock libvirt-dev libmysqlclient-dev qtbase5-dev qtdeclarative5-dev \
@@ -25,5 +25,8 @@ RUN cd /usr/src/gtest/ && cmake . && make && cp *.a /usr/lib
 RUN apt-get install -y git bison
 # liblightgrep
 RUN cd /tmp && git clone --recursive https://github.com/ligen-ua/liblightgrep.git && cd liblightgrep && autoreconf -fi && ./configure --with-boost-libdir=/usr/lib/i386-linux-gnu/ && make && make install
+
+# sqlite3
+RUN  cd /tmp && wget https://sqlite.org/src/tarball/version-3.31.1/sqlite.tar.gz && tar xf sqlite.tar.gz && cd sqlite && autoconf && ./configure && make && make install && cd .. && rm -rf sqlite sqlite.tar.gz
 
 
