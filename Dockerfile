@@ -19,8 +19,8 @@ RUN  cd /tmp && wget http://nixos.org/releases/patchelf/patchelf-0.8/patchelf-0.
 # Custom build of xalan-c lib
 RUN cd /tmp && apt-get source libxalan-c111 && cd ./xalan-1.11/c/ && export XALANCROOT=/tmp/xalan-1.11/c && ./runConfigure -p linux -c gcc -x g++ -d && make && cp -pr ./lib/lib* /usr/lib/i386-linux-gnu/
 
-RUN apt-get install -y libgtest-dev
-RUN cd /usr/src/gtest/ && cmake . && make && cp *.a /usr/lib
+RUN cd /usr/src/gmock/gtest/ && cmake . && make && cp -r include/gtest /usr/include && cp *.a /usr/lib
+RUN cd /usr/src/gmock/ && cmake . && make && cp *.a /usr/lib
 
 RUN apt-get install -y git bison
 # liblightgrep
