@@ -27,6 +27,7 @@ RUN apt-get install -y git bison
 RUN cd /tmp && git clone --recursive https://github.com/ligen-ua/liblightgrep.git && cd liblightgrep && autoreconf -fi && ./configure --with-boost-libdir=/usr/lib/i386-linux-gnu/ && make && make install
 
 # sqlite3
-RUN  cd /tmp && wget https://sqlite.org/src/tarball/version-3.31.1/sqlite.tar.gz && tar xf sqlite.tar.gz && cd sqlite && autoconf && ./configure && make && make install && cd .. && rm -rf sqlite sqlite.tar.gz
+RUN  cd /tmp && wget --no-check-certificate https://sqlite.org/src/tarball/version-3.31.1/sqlite.tar.gz && tar xf sqlite.tar.gz && cd sqlite && autoconf && ./configure && make && make install && cd .. && rm -rf sqlite sqlite.tar.gz
 
-
+# ext2fs
+RUN apt-get install -y e2fslibs-dev
